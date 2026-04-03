@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="ru">
 <head>
-
-<!-- Google tag (gtag.js) -->
+    
+	<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QVCYYN9TXE"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -25,7 +25,7 @@
         .img-btn:active { background: #ff9900; color: #000; }
         .link-btn { font-size: 16px; font-weight: bold; width: 45px; padding: 0; }
         .size-header { display: block; text-align: center; font-size: 13px; font-weight: bold; color: #ff9900; text-transform: uppercase; margin-bottom: 5px; padding-top: 0px; cursor: default; }
-        .size-panel { display: flex; gap: 5px; margin-bottom: 45px; justify-content: center; flex-wrap: wrap; }
+        .size-panel { display: flex; gap: 5px; margin-bottom: 35px; justify-content: center; flex-wrap: wrap; }
         .btn-s { width: 25px; height: 25px; font-size: 14px; background: #333; border: 1px solid #555; color: #fff; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
         .btn-s:active { background: #ff9900; color: #000; }
         .color-btn-wrapper { position: relative; width: 55px; height: 30px; background: #2a2a2a; border: 1px solid #444; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; transition: 0.2s; }
@@ -43,7 +43,6 @@
         #result { padding: 15px; word-wrap: break-word; color: #000000; line-height: 1.5; font-size: 15px; font-weight: 600; }
         #result a { color: #0044cc; text-decoration: underline; }
 
-        /* Стили кастомных модальных окон */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
         .modal-box { background: #1a1a1a; border: 1px solid #ff9900; padding: 20px; border-radius: 12px; width: 100%; max-width: 300px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.8); }
         .modal-box p { color: #ff9900; margin: 0 0 15px 0; font-weight: bold; text-transform: uppercase; font-size: 14px; }
@@ -96,7 +95,6 @@
     </div>
 </div>
 
-<!-- Модалка Очистки -->
 <div id="modalClear" class="modal-overlay">
     <div class="modal-box">
         <p>Очистить всё?</p>
@@ -107,7 +105,6 @@
     </div>
 </div>
 
-<!-- Модалка Ссылки -->
 <div id="modalLink" class="modal-overlay">
     <div class="modal-box">
         <p>Введите URL ссылки</p>
@@ -125,10 +122,17 @@
     const counter = document.getElementById('counter');
     const previewContainer = document.getElementById('preview-container');
 
-    function getCleanLength(text) { return text.replace(/\s/g, '').length; }
-    function validateInput(e) { if (!e.data) return; if (getCleanLength(area.value) + getCleanLength(e.data) > 2000) e.preventDefault(); }
+    function getFullLength(text) { 
+        const lineBreaks = (text.match(/\n/g) || []).length;
+        return text.length + lineBreaks; 
+    }
+
+    function validateInput(e) { 
+        if (!e.data) return; 
+        const addedLen = e.data.length + (e.data.match(/\n/g) || []).length;
+        if (getFullLength(area.value) + addedLen > 2000) e.preventDefault(); 
+    }
     
-    // Управление модалками
     function openClearModal() { document.getElementById('modalClear').style.display = 'flex'; }
     function openLinkModal() { document.getElementById('modalLink').style.display = 'flex'; setTimeout(() => document.getElementById('linkInput').focus(), 100); }
     function closeModals() { document.getElementById('modalClear').style.display = 'none'; document.getElementById('modalLink').style.display = 'none'; }
@@ -146,8 +150,15 @@
         const start = area.selectionStart, end = area.selectionEnd, text = area.value;
         let selected = text.substring(start, end) || "текст";
         selected = selected.replace(/<color=#[0-9a-fA-F]{6}>/gi, "").replace(/<\/color>/gi, "");
-        const newText = text.substring(0, start) + `<color=${hex}>` + selected + `</color>` + text.substring(end);
-        if(getCleanLength(newText) <= 2000) { area.value = newText; updatePreview(); area.setSelectionRange(start, start + `<color=${hex}>`.length + selected.length + `</color>`.length); }
+        const open = `<color=${hex}>`, close = `</color>`;
+        const newText = text.substring(0, start) + open + selected + close + text.substring(end);
+        
+        if(getFullLength(newText) <= 2000) {
+            area.value = newText;
+            updatePreview();
+            // Возвращаем выделение на весь блок с тегами
+            area.setSelectionRange(start, start + open.length + selected.length + close.length);
+        }
         area.focus();
     }
 
@@ -156,21 +167,34 @@
         let selected = text.substring(start, end) || "текст";
         selected = selected.replace(/<size=\d+>/gi, "").replace(/<\/size>/gi, "");
         const open = `<size=${val}>`, close = `</size>`, newText = text.substring(0, start) + open + selected + close + text.substring(end);
-        if(getCleanLength(newText) <= 2000) { area.value = newText; updatePreview(); area.setSelectionRange(start, start + open.length + selected.length + close.length); }
+        
+        if(getFullLength(newText) <= 2000) {
+            area.value = newText;
+            updatePreview();
+            // Возвращаем выделение на весь блок с тегами
+            area.setSelectionRange(start, start + open.length + selected.length + close.length);
+        }
         area.focus();
     }
 
     function insertText(open, close, defaultText = "текст") {
-        const start = area.selectionStart, end = area.selectionEnd, text = area.value, selected = text.substring(start, end) || defaultText;
+        const start = area.selectionStart, end = area.selectionEnd, text = area.value;
+        const selected = text.substring(start, end) || defaultText;
         const newText = text.substring(0, start) + open + selected + close + text.substring(end);
-        if(getCleanLength(newText) <= 2000) { area.value = newText; const newPos = start + open.length + selected.length + close.length; area.setSelectionRange(newPos, newPos); updatePreview(); }
+        
+        if(getFullLength(newText) <= 2000) {
+            area.value = newText;
+            updatePreview();
+            // Возвращаем выделение на весь блок с тегами
+            area.setSelectionRange(start, start + open.length + selected.length + close.length);
+        }
         area.focus();
     }
 
     function updatePreview() {
-        const cleanLen = getCleanLength(area.value);
-        counter.innerText = `${cleanLen}/2000`;
-        counter.classList.toggle('limit', cleanLen >= 2000);
+        const len = getFullLength(area.value);
+        counter.innerText = `${len}/2000`;
+        counter.classList.toggle('limit', len >= 2000);
         let content = area.value.replace(/\n/g, "<br>");
         content = content.replace(/<color=(#[0-9a-fA-F]{6})>(.*?)<\/color>/gi, '<span style="color:$1">$2</span>');
         content = content.replace(/<b>(.*?)<\/b>/gi, '<b>$1</b>');
