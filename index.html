@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Viking Rise Mail Editor</title>
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: #121212; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 10px; margin: 0; display: flex; justify-content: center; }
+        
+        /* Уменьшен padding контейнера с 15px до 10px */
+        .container { border: 1px solid #ff9900; background: #1a1a1a; padding: 10px; border-radius: 12px; width: 100%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        /* h2: уменьшен отступ сверху до -5px и снизу до 8px */
+        h2 { color: #ff9900; margin: -5px 0 8px 0; font-size: 18px; text-align: center; text-transform: uppercase; }
+        
+        /* btns: уменьшен отступ снизу до 5px */
+        .btns { display: flex; gap: 8px; margin-bottom: 5px; justify-content: center; align-items: center; flex-wrap: wrap; }
+        
+        .img-btn { background: #333; border: 1px solid #444; color: #ccc; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px; font-size: 16px; transition: 0.2s; }
+        .img-btn:active { background: #ff9900; color: #000; }
+        .link-btn { font-size: 16px; font-weight: bold; width: 40px; padding: 0; }
+        
+        /* Метка размера: уменьшен отступ сверху и снизу */
+        .size-header { display: block; text-align: center; font-size: 13px; font-weight: bold; color: #ff9900; text-transform: uppercase; margin-bottom: 5px; padding-top: 0px; cursor: default; }
+        
+        /* Панель кнопок размера: уменьшен отступ снизу до 10px */
+        .size-panel { display: flex; gap: 5px; margin-bottom: 10px; justify-content: center; flex-wrap: wrap; }
+        
+        .btn-s { 
+            width: 25px; height: 25px; font-size: 14px; background: #333; border: 1px solid #555; color: #fff; border-radius: 6px; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; padding: 0; line-height: 1;
+        }
+        .btn-s:active { background: #ff9900; color: #000; }
+        
+        .color-btn-wrapper { position: relative; width: 55px; height: 30px; background: #2a2a2a; border: 1px solid #444; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; transition: 0.2s; }
+        .color-label { display: flex; gap: 0; font-size: 17px; font-weight: 900; text-transform: uppercase; pointer-events: none; }
+        #colorPicker { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+        
+        textarea { width: 100%; height: 180px; background: #acb3b7; color: #000000; padding: 12px; border: 2px solid #ff9900; border-radius: 8px; font-family: monospace; font-size: 16px; resize: none; outline: none; margin-bottom: 5px; font-weight: 600; }
+        
+        .char-counter { text-align: right; font-size: 12px; color: #ff9900; margin-bottom: 10px; font-family: monospace; }
+        .char-counter.limit { color: #ff4444; font-weight: bold; }
+        
+        .action-row { display: flex; gap: 10px; margin-top: 5px; }
+        .btn-action { flex: 1; padding: 14px; background: #222; border: 1px solid #444; color: #ff9900; cursor: pointer; font-size: 13px; font-weight: bold; text-transform: uppercase; border-radius: 8px; }
+        .btn-copy { color: #44ff44; border-color: #226622; }
+        .btn-clear { flex: 0.3; color: #ff4444; border-color: #662222; }
+        
+        .preview-wrapper { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: #acb3b7; border-radius: 8px; }
+        .preview-wrapper.open { max-height: 1000px; margin-top: 10px; border: 2px solid #ff9900; }
+        #result { padding: 15px; word-wrap: break-word; color: #000000; line-height: 1.5; font-size: 15px; font-weight: 600; }
+        #result a { color: #0044cc; text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Viking Rise Mail Editor</h2>
+    <div class="btns">
+        <button class="img-btn" onmousedown="event.preventDefault()" onclick="tag('b')"><b>Ж</b></button>
+        <button class="img-btn" onmousedown="event.preventDefault()" onclick="tag('i')"><i>К</i></button>
+        <button class="img-btn" onmousedown="event.preventDefault()" onclick="tag('u')"><u>Ч</u></button>
+        <button class="img-btn link-btn" onmousedown="event.preventDefault()" onclick="addLink()">URL</button>
+        <div class="color-btn-wrapper" onmousedown="event.preventDefault()">
+            <div class="color-label"><span style="color: #FF3B30;">Ц</span><span style="color: #FFCC00;">В</span><span style="color: #4CD964;">Е</span><span style="color: #007AFF;">Т</span></div>
+            <input type="color" id="colorPicker" onchange="applyColor(this.value)">
+        </div>
+    </div>
+    
+    <span class="size-header">Размер Шрифта ▼</span>
+
+    <div class="size-panel">
+        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(10)">1</button>
+        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(20)">2</button>
+        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(30)">3</button>
+        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(40)">4</button>
+        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(50)">5</button>
+        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(60)">6</button>
+        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(70)">7</button>
+        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(80)">8</button>
+        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(90)">9</button>
+        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(100)">10</button>
+    </div>
+    
+    <textarea id="edit" placeholder="Напишите сообщение..." oninput="updatePreview()" onbeforeinput="validateInput(event)"></textarea>
+    <div class="char-counter" id="counter">0/2000</div>
+    
+    <div class="action-row">
+        <button class="btn-action" onclick="togglePreview()" id="toggleBtn">Превью ▼</button>
+        <button class="btn-action btn-copy" onclick="copyCode()" id="copyBtn">Копировать</button>
+        <button class="btn-action btn-clear" onclick="clearAll()">✖</button>
+    </div>
+    <div id="preview-container" class="preview-wrapper">
+        <div id="result">Результат появится здесь...</div>
+    </div>
+</div>
+<script>
+    const area = document.getElementById('edit');
+    const result = document.getElementById('result');
+    const counter = document.getElementById('counter');
+    const previewContainer = document.getElementById('preview-container');
+
+    function getCleanLength(text) { return text.replace(/\s/g, '').length; }
+    function validateInput(e) { if (!e.data) return; if (getCleanLength(area.value) + getCleanLength(e.data) > 2000) e.preventDefault(); }
+    function tag(name) { insertText(`<${name}>`, `</${name}>`); }
+
+    function applyColor(hex) {
+        const start = area.selectionStart, end = area.selectionEnd;
+        const text = area.value;
+        let selected = text.substring(start, end) || "текст";
+        selected = selected.replace(/<color=#[0-9a-fA-F]{6}>/gi, "").replace(/<\/color>/gi, "");
+        const newText = text.substring(0, start) + `<color=${hex}>` + selected + `</color>` + text.substring(end);
+        if(getCleanLength(newText) <= 2000) {
+            area.value = newText;
+            updatePreview();
+            area.setSelectionRange(start, start + `<color=${hex}>`.length + selected.length + `</color>`.length);
+        }
+        area.focus();
+    }
+
+    function applySize(val) {
+        const start = area.selectionStart, end = area.selectionEnd;
+        const text = area.value;
+        let selected = text.substring(start, end) || "текст";
+        selected = selected.replace(/<size=\d+>/gi, "").replace(/<\/size>/gi, "");
+        const open = `<size=${val}>`, close = `</size>`;
+        const newText = text.substring(0, start) + open + selected + close + text.substring(end);
+        if(getCleanLength(newText) <= 2000) {
+            area.value = newText;
+            updatePreview();
+            area.setSelectionRange(start, start + open.length + selected.length + close.length);
+        }
+        area.focus();
+    }
+
+    function addLink() { const url = prompt("Введите адрес ссылки:", "https://"); if (url) { insertText(`<a href=${url}>`, `</a>`, "ссылка"); } }
+
+    function insertText(open, close, defaultText = "текст") {
+        const start = area.selectionStart, end = area.selectionEnd, text = area.value;
+        const selected = text.substring(start, end) || defaultText;
+        const newText = text.substring(0, start) + open + selected + close + text.substring(end);
+        if(getCleanLength(newText) <= 2000) {
+            area.value = newText;
+            const newPos = start + open.length + selected.length + close.length;
+            area.setSelectionRange(newPos, newPos);
+            updatePreview();
+        }
+        area.focus();
+    }
+
+    function updatePreview() {
+        const cleanLen = getCleanLength(area.value);
+        counter.innerText = `${cleanLen}/2000`;
+        counter.classList.toggle('limit', cleanLen >= 2000);
+        let content = area.value.replace(/\n/g, "<br>");
+        content = content.replace(/<color=(#[0-9a-fA-F]{6})>(.*?)<\/color>/gi, '<span style="color:$1">$2</span>');
+        content = content.replace(/<b>(.*?)<\/b>/gi, '<b>$1</b>');
+        content = content.replace(/<i>(.*?)<\/i>/gi, '<i>$1</i>');
+        content = content.replace(/<u>(.*?)<\/u>/gi, '<u>$1</u>');
+        content = content.replace(/<a href=(.*?)>(.*?)<\/a>/gi, '<a href="$1" target="_blank">$2</a>');
+        content = content.replace(/<size=(\d+)>(.*?)<\/size>/gi, '<span style="font-size: calc($1px / 2.5); line-height: 1.2;">$2</span>');
+        result.innerHTML = content || "<span style='color: #666;'>Результат появится здесь...</span>";
+    }
+
+    function copyCode() {
+        if (!area.value) return;
+        navigator.clipboard.writeText(area.value).then(() => {
+            const btn = document.getElementById('copyBtn');
+            const old = btn.innerText; btn.innerText = "Готово!";
+            setTimeout(() => btn.innerText = old, 1500);
+        });
+    }
+
+    function togglePreview() {
+        const btn = document.getElementById('toggleBtn');
+        const isOpen = previewContainer.classList.toggle('open');
+        btn.innerText = isOpen ? "Скрыть ▲" : "Превью ▼";
+    }
+
+    function clearAll() { if (confirm("Очистить всё?")) { area.value = ""; updatePreview(); } }
+</script>
+</body>
+</html>
