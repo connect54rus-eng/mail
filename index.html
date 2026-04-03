@@ -12,7 +12,7 @@
   gtag('config', 'G-QVCYYN9TXE');
 </script>
 
-    <meta charset="utf-8">
+<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Viking Rise Mail Editor</title>
     <style>
@@ -25,12 +25,19 @@
         .img-btn:active { background: #ff9900; color: #000; }
         .link-btn { font-size: 16px; font-weight: bold; width: 45px; padding: 0; }
         .size-header { display: block; text-align: center; font-size: 13px; font-weight: bold; color: #ff9900; text-transform: uppercase; margin-bottom: 5px; padding-top: 0px; cursor: default; }
-        .size-panel { display: flex; gap: 5px; margin-bottom: 35px; justify-content: center; flex-wrap: wrap; }
+        
+        .size-panel { display: flex; gap: 5px; margin-bottom: 5px; justify-content: center; flex-wrap: wrap; }
         .btn-s { width: 25px; height: 25px; font-size: 14px; background: #333; border: 1px solid #555; color: #fff; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
         .btn-s:active { background: #ff9900; color: #000; }
-        .color-btn-wrapper { position: relative; width: 55px; height: 30px; background: #2a2a2a; border: 1px solid #444; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; transition: 0.2s; }
-        .color-label { display: flex; gap: 0; font-size: 17px; font-weight: 900; text-transform: uppercase; pointer-events: none; }
+
+        .color-panel { display: flex; gap: 5px; margin-bottom: 35px; justify-content: center; align-items: center; flex-wrap: wrap; }
+        .color-dot { width: 25px; height: 25px; border-radius: 50%; border: 1px solid #555; cursor: pointer; }
+        
+        /* Обновленная кнопка ЦВЕТ с разноцветными буквами */
+        .palette-btn-wrapper { position: relative; width: 55px; height: 25px; background: #2a2a2a; border: 1px solid #444; border-radius: 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; }
+        .color-label { display: flex; gap: 0; font-size: 12px; font-weight: 900; text-transform: uppercase; pointer-events: none; }
         #colorPicker { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+
         textarea { width: 100%; height: 180px; background: #acb3b7; color: #000000; padding: 12px; border: 2px solid #ff9900; border-radius: 8px; font-family: monospace; font-size: 16px; resize: none; outline: none; margin-bottom: 5px; font-weight: 600; }
         .char-counter { text-align: right; font-size: 12px; color: #ff9900; margin-bottom: 10px; font-family: monospace; }
         .char-counter.limit { color: #ff4444; font-weight: bold; }
@@ -63,12 +70,9 @@
         <button class="img-btn" onmousedown="event.preventDefault()" onclick="tag('i')"><i>К</i></button>
         <button class="img-btn" onmousedown="event.preventDefault()" onclick="tag('u')"><u>Ч</u></button>
         <button class="img-btn link-btn" onmousedown="event.preventDefault()" onclick="openLinkModal()">URL</button>
-        <div class="color-btn-wrapper" onmousedown="event.preventDefault()">
-            <div class="color-label"><span style="color: #FF3B30;">Ц</span><span style="color: #FFCC00;">В</span><span style="color: #4CD964;">Е</span><span style="color: #007AFF;">Т</span></div>
-            <input type="color" id="colorPicker" onchange="applyColor(this.value)">
-        </div>
     </div>
-    <span class="size-header">Размер Шрифта ▼</span>
+    
+    <span class="size-header">Размер ▼</span>
     <div class="size-panel">
         <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(10)">1</button>
         <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(20)">2</button>
@@ -80,6 +84,25 @@
         <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(80)">8</button>
         <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(90)">9</button>
         <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(100)">10</button>
+    </div>
+
+    <span class="size-header">Цвет ▼</span>
+    <div class="color-panel">
+        <div class="color-dot" style="background: #FF0000;" onmousedown="event.preventDefault()" onclick="applyColor('#FF0000')"></div>
+        <div class="color-dot" style="background: #FF9900;" onmousedown="event.preventDefault()" onclick="applyColor('#FF9900')"></div>
+        <div class="color-dot" style="background: #FFFF00;" onmousedown="event.preventDefault()" onclick="applyColor('#FFFF00')"></div>
+        <div class="color-dot" style="background: #00FF00;" onmousedown="event.preventDefault()" onclick="applyColor('#00FF00')"></div>
+        <div class="color-dot" style="background: #00FFFF;" onmousedown="event.preventDefault()" onclick="applyColor('#00FFFF')"></div>
+        <div class="color-dot" style="background: #0000FF;" onmousedown="event.preventDefault()" onclick="applyColor('#0000FF')"></div>
+        <div class="color-dot" style="background: #FF00FF;" onmousedown="event.preventDefault()" onclick="applyColor('#FF00FF')"></div>
+        <div class="color-dot" style="background: #FFFFFF;" onmousedown="event.preventDefault()" onclick="applyColor('#FFFFFF')"></div>
+        <div class="color-dot" style="background: #000000;" onmousedown="event.preventDefault()" onclick="applyColor('#000000')"></div>
+        
+        <!-- Кнопка вызова палитры с разноцветными буквами -->
+        <div class="palette-btn-wrapper" onmousedown="event.preventDefault()">
+            <div class="color-label"><span style="color: #FF3B30;">Ц</span><span style="color: #FFCC00;">В</span><span style="color: #4CD964;">Е</span><span style="color: #007AFF;">Т</span></div>
+            <input type="color" id="colorPicker" onchange="applyColor(this.value)">
+        </div>
     </div>
     
     <textarea id="edit" placeholder="Напишите сообщение..." oninput="updatePreview()" onbeforeinput="validateInput(event)"></textarea>
@@ -96,121 +119,57 @@
 </div>
 
 <div id="modalClear" class="modal-overlay">
-    <div class="modal-box">
-        <p>Очистить всё?</p>
-        <div class="modal-btns">
-            <button class="modal-btn btn-cancel" onclick="closeModals()">Отмена</button>
-            <button class="modal-btn btn-danger" onclick="confirmClear()">Очистить</button>
-        </div>
-    </div>
+    <div class="modal-box"><p>Очистить всё?</p><div class="modal-btns"><button class="modal-btn btn-cancel" onclick="closeModals()">Отмена</button><button class="modal-btn btn-danger" onclick="confirmClear()">Очистить</button></div></div>
 </div>
-
 <div id="modalLink" class="modal-overlay">
-    <div class="modal-box">
-        <p>Введите URL ссылки</p>
-        <input type="text" id="linkInput" class="modal-input" placeholder="https://..." value="https://">
-        <div class="modal-btns">
-            <button class="modal-btn btn-cancel" onclick="closeModals()">Отмена</button>
-            <button class="modal-btn btn-confirm" onclick="confirmLink()">ОК</button>
-        </div>
-    </div>
+    <div class="modal-box"><p>Введите URL ссылки</p><input type="text" id="linkInput" class="modal-input" value="https://"><div class="modal-btns"><button class="modal-btn btn-cancel" onclick="closeModals()">Отмена</button><button class="modal-btn btn-confirm" onclick="confirmLink()">ОК</button></div></div>
 </div>
 
 <script>
-    const area = document.getElementById('edit');
-    const result = document.getElementById('result');
-    const counter = document.getElementById('counter');
-    const previewContainer = document.getElementById('preview-container');
-
-    function getFullLength(text) { 
-        const lineBreaks = (text.match(/\n/g) || []).length;
-        return text.length + lineBreaks; 
-    }
-
-    function validateInput(e) { 
-        if (!e.data) return; 
-        const addedLen = e.data.length + (e.data.match(/\n/g) || []).length;
-        if (getFullLength(area.value) + addedLen > 2000) e.preventDefault(); 
-    }
-    
+    const area = document.getElementById('edit'), result = document.getElementById('result'), counter = document.getElementById('counter'), previewContainer = document.getElementById('preview-container');
+    function getFullLength(text) { return text.length + (text.match(/\n/g) || []).length; }
+    function validateInput(e) { if (!e.data) return; if (getFullLength(area.value) + e.data.length + (e.data.match(/\n/g) || []).length > 2000) e.preventDefault(); }
     function openClearModal() { document.getElementById('modalClear').style.display = 'flex'; }
-    function openLinkModal() { document.getElementById('modalLink').style.display = 'flex'; setTimeout(() => document.getElementById('linkInput').focus(), 100); }
+    function openLinkModal() { document.getElementById('modalLink').style.display = 'flex'; }
     function closeModals() { document.getElementById('modalClear').style.display = 'none'; document.getElementById('modalLink').style.display = 'none'; }
-
     function confirmClear() { area.value = ""; updatePreview(); closeModals(); }
-    function confirmLink() { 
-        const url = document.getElementById('linkInput').value;
-        if (url && url !== "https://") { insertText(`<a href=${url}>`, `</a>`, "ссылка"); }
-        closeModals();
-    }
-
+    function confirmLink() { const url = document.getElementById('linkInput').value; if (url && url !== "https://") { insertText(`<a href=${url}>`, `</a>`, "ссылка"); } closeModals(); }
     function tag(name) { insertText(`<${name}>`, `</${name}>`); }
-
     function applyColor(hex) {
         const start = area.selectionStart, end = area.selectionEnd, text = area.value;
         let selected = text.substring(start, end) || "текст";
         selected = selected.replace(/<color=#[0-9a-fA-F]{6}>/gi, "").replace(/<\/color>/gi, "");
-        const open = `<color=${hex}>`, close = `</color>`;
-        const newText = text.substring(0, start) + open + selected + close + text.substring(end);
-        
-        if(getFullLength(newText) <= 2000) {
-            area.value = newText;
-            updatePreview();
-            // Возвращаем выделение на весь блок с тегами
-            area.setSelectionRange(start, start + open.length + selected.length + close.length);
-        }
+        const open = `<color=${hex}>`, close = `</color>`, newText = text.substring(0, start) + open + selected + close + text.substring(end);
+        if(getFullLength(newText) <= 2000) { area.value = newText; updatePreview(); area.setSelectionRange(start, start + open.length + selected.length + close.length); }
         area.focus();
     }
-
     function applySize(val) {
         const start = area.selectionStart, end = area.selectionEnd, text = area.value;
         let selected = text.substring(start, end) || "текст";
         selected = selected.replace(/<size=\d+>/gi, "").replace(/<\/size>/gi, "");
         const open = `<size=${val}>`, close = `</size>`, newText = text.substring(0, start) + open + selected + close + text.substring(end);
-        
-        if(getFullLength(newText) <= 2000) {
-            area.value = newText;
-            updatePreview();
-            // Возвращаем выделение на весь блок с тегами
-            area.setSelectionRange(start, start + open.length + selected.length + close.length);
-        }
+        if(getFullLength(newText) <= 2000) { area.value = newText; updatePreview(); area.setSelectionRange(start, start + open.length + selected.length + close.length); }
         area.focus();
     }
-
-    function insertText(open, close, defaultText = "текст") {
-        const start = area.selectionStart, end = area.selectionEnd, text = area.value;
-        const selected = text.substring(start, end) || defaultText;
-        const newText = text.substring(0, start) + open + selected + close + text.substring(end);
-        
-        if(getFullLength(newText) <= 2000) {
-            area.value = newText;
-            updatePreview();
-            // Возвращаем выделение на весь блок с тегами
-            area.setSelectionRange(start, start + open.length + selected.length + close.length);
-        }
+    function insertText(open, close, def = "текст") {
+        const s = area.selectionStart, e = area.selectionEnd, t = area.value, sel = t.substring(s, e) || def;
+        const nt = t.substring(0, s) + open + sel + close + t.substring(e);
+        if(getFullLength(nt) <= 2000) { area.value = nt; area.setSelectionRange(s, s + open.length + sel.length + close.length); updatePreview(); }
         area.focus();
     }
-
     function updatePreview() {
         const len = getFullLength(area.value);
         counter.innerText = `${len}/2000`;
         counter.classList.toggle('limit', len >= 2000);
-        let content = area.value.replace(/\n/g, "<br>");
-        content = content.replace(/<color=(#[0-9a-fA-F]{6})>(.*?)<\/color>/gi, '<span style="color:$1">$2</span>');
-        content = content.replace(/<b>(.*?)<\/b>/gi, '<b>$1</b>');
-        content = content.replace(/<i>(.*?)<\/i>/gi, '<i>$1</i>');
-        content = content.replace(/<u>(.*?)<\/u>/gi, '<u>$1</u>');
-        content = content.replace(/<a href=(.*?)>(.*?)<\/a>/gi, '<a href="$1" target="_blank">$2</a>');
-        content = content.replace(/<size=(\d+)>(.*?)<\/size>/gi, '<span style="font-size: calc($1px / 2.5); line-height: 1.2;">$2</span>');
-        result.innerHTML = content || "<span style='color: #666;'>Результат появится здесь...</span>";
+        let c = area.value.replace(/\n/g, "<br>");
+        c = c.replace(/<color=(#[0-9a-fA-F]{6})>(.*?)<\/color>/gi, '<span style="color:$1">$2</span>');
+        c = c.replace(/<b>(.*?)<\/b>/gi, '<b>$1</b>').replace(/<i>(.*?)<\/i>/gi, '<i>$1</i>').replace(/<u>(.*?)<\/u>/gi, '<u>$1</u>');
+        c = c.replace(/<a href=(.*?)>(.*?)<\/a>/gi, '<a href="$1" target="_blank">$2</a>');
+        c = c.replace(/<size=(\d+)>(.*?)<\/size>/gi, '<span style="font-size: calc($1px / 2.5); line-height: 1.2;">$2</span>');
+        result.innerHTML = c || "<span style='color: #666;'>Результат...</span>";
     }
-
-    function copyCode() {
-        if (!area.value) return;
-        navigator.clipboard.writeText(area.value).then(() => { const btn = document.getElementById('copyBtn'); const old = btn.innerText; btn.innerText = "Готово!"; setTimeout(() => btn.innerText = old, 1500); });
-    }
-
-    function togglePreview() { const btn = document.getElementById('toggleBtn'); const isOpen = previewContainer.classList.toggle('open'); btn.innerText = isOpen ? "Скрыть ▲" : "Превью ▼"; }
+    function copyCode() { if (!area.value) return; navigator.clipboard.writeText(area.value).then(() => { const b = document.getElementById('copyBtn'), o = b.innerText; b.innerText = "Готово!"; setTimeout(() => b.innerText = o, 1500); }); }
+    function togglePreview() { const b = document.getElementById('toggleBtn'), is = previewContainer.classList.toggle('open'); b.innerText = is ? "Скрыть ▲" : "Превью ▼"; }
 </script>
 </body>
 </html>
