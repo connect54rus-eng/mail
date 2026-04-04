@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="ru">
 <head>
-    
-	<!-- Google tag (gtag.js) -->
+
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QVCYYN9TXE"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -25,19 +25,14 @@
         .img-btn:active { background: #ff9900; color: #000; }
         .link-btn { font-size: 16px; font-weight: bold; width: 45px; padding: 0; }
         .size-header { display: block; text-align: center; font-size: 13px; font-weight: bold; color: #ff9900; text-transform: uppercase; margin-bottom: 5px; padding-top: 0px; cursor: default; }
-        
         .size-panel { display: flex; gap: 5px; margin-bottom: 5px; justify-content: center; flex-wrap: wrap; }
         .btn-s { width: 25px; height: 25px; font-size: 14px; background: #333; border: 1px solid #555; color: #fff; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
         .btn-s:active { background: #ff9900; color: #000; }
-
         .color-panel { display: flex; gap: 5px; margin-bottom: 35px; justify-content: center; align-items: center; flex-wrap: wrap; }
         .color-dot { width: 25px; height: 25px; border-radius: 50%; border: 1px solid #555; cursor: pointer; }
-        
-        /* Обновленная кнопка ЦВЕТ с разноцветными буквами */
         .palette-btn-wrapper { position: relative; width: 55px; height: 25px; background: #2a2a2a; border: 1px solid #444; border-radius: 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; }
         .color-label { display: flex; gap: 0; font-size: 12px; font-weight: 900; text-transform: uppercase; pointer-events: none; }
         #colorPicker { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-
         textarea { width: 100%; height: 180px; background: #ffffff; color: #000000; padding: 12px; border: 2px solid #ff9900; border-radius: 8px; font-family: monospace; font-size: 16px; resize: none; outline: none; margin-bottom: 5px; font-weight: 600; }
         .char-counter { text-align: right; font-size: 12px; color: #ff9900; margin-bottom: 10px; font-family: monospace; }
         .char-counter.limit { color: #ff4444; font-weight: bold; }
@@ -49,7 +44,6 @@
         .preview-wrapper.open { max-height: 1000px; margin-top: 10px; border: 2px solid #ff9900; }
         #result { padding: 15px; word-wrap: break-word; color: #000000; line-height: 1.5; font-size: 15px; font-weight: 600; }
         #result a { color: #0044cc; text-decoration: underline; }
-
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
         .modal-box { background: #1a1a1a; border: 1px solid #ff9900; padding: 20px; border-radius: 12px; width: 100%; max-width: 300px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.8); }
         .modal-box p { color: #ff9900; margin: 0 0 15px 0; font-weight: bold; text-transform: uppercase; font-size: 14px; }
@@ -71,7 +65,7 @@
         <button class="img-btn" onmousedown="event.preventDefault()" onclick="tag('u')"><u>Ч</u></button>
         <button class="img-btn link-btn" onmousedown="event.preventDefault()" onclick="openLinkModal()">URL</button>
     </div>
-    
+
     <span class="size-header">Размер ▼</span>
     <div class="size-panel">
         <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(10)">1</button>
@@ -97,8 +91,6 @@
         <div class="color-dot" style="background: #FF00FF;" onmousedown="event.preventDefault()" onclick="applyColor('#FF00FF')"></div>
         <div class="color-dot" style="background: #FFFFFF;" onmousedown="event.preventDefault()" onclick="applyColor('#FFFFFF')"></div>
         <div class="color-dot" style="background: #000000;" onmousedown="event.preventDefault()" onclick="applyColor('#000000')"></div>
-        
-        <!-- Кнопка вызова палитры с разноцветными буквами -->
         <div class="palette-btn-wrapper" onmousedown="event.preventDefault()">
             <div class="color-label"><span style="color: #FF3B30;">Ц</span><span style="color: #FFCC00;">В</span><span style="color: #4CD964;">Е</span><span style="color: #007AFF;">Т</span></div>
             <input type="color" id="colorPicker" onchange="applyColor(this.value)">
@@ -127,36 +119,76 @@
 
 <script>
     const area = document.getElementById('edit'), result = document.getElementById('result'), counter = document.getElementById('counter'), previewContainer = document.getElementById('preview-container');
+    
     function getFullLength(text) { return text.length + (text.match(/\n/g) || []).length; }
     function validateInput(e) { if (!e.data) return; if (getFullLength(area.value) + e.data.length + (e.data.match(/\n/g) || []).length > 2000) e.preventDefault(); }
     function openClearModal() { document.getElementById('modalClear').style.display = 'flex'; }
-    function openLinkModal() { document.getElementById('modalLink').style.display = 'flex'; }
     function closeModals() { document.getElementById('modalClear').style.display = 'none'; document.getElementById('modalLink').style.display = 'none'; }
     function confirmClear() { area.value = ""; updatePreview(); closeModals(); }
-    function confirmLink() { const url = document.getElementById('linkInput').value; if (url && url !== "https://") { insertText(`<a href=${url}>`, `</a>`, "ссылка"); } closeModals(); }
-    function tag(name) { insertText(`<${name}>`, `</${name}>`); }
-    function applyColor(hex) {
-        const start = area.selectionStart, end = area.selectionEnd, text = area.value;
-        let selected = text.substring(start, end) || "текст";
-        selected = selected.replace(/<color=#[0-9a-fA-F]{6}>/gi, "").replace(/<\/color>/gi, "");
-        const open = `<color=${hex}>`, close = `</color>`, newText = text.substring(0, start) + open + selected + close + text.substring(end);
-        if(getFullLength(newText) <= 2000) { area.value = newText; updatePreview(); area.setSelectionRange(start, start + open.length + selected.length + close.length); }
-        area.focus();
+
+    function openLinkModal() { 
+        const s = area.selectionStart, e = area.selectionEnd, t = area.value;
+        const selected = t.substring(s, e);
+        if (/<a [^>]+>|<\/a>/gi.test(selected)) { toggleTag("", "", "a"); } 
+        else { document.getElementById('modalLink').style.display = 'flex'; }
     }
+
+    function tag(name) { toggleTag(`<${name}>`, `</${name}>`, name); }
+
+    function confirmLink() { 
+        const url = document.getElementById('linkInput').value; 
+        if (url && url !== "https://") { toggleTag(`<a href=${url}>`, `</a>`, "a", false, true); } 
+        closeModals(); 
+    }
+
+    function applyColor(hex) { toggleTag(`<color=${hex}>`, `</color>`, "color", true); }
+
     function applySize(val) {
-        const start = area.selectionStart, end = area.selectionEnd, text = area.value;
-        let selected = text.substring(start, end) || "текст";
-        selected = selected.replace(/<size=\d+>/gi, "").replace(/<\/size>/gi, "");
-        const open = `<size=${val}>`, close = `</size>`, newText = text.substring(0, start) + open + selected + close + text.substring(end);
-        if(getFullLength(newText) <= 2000) { area.value = newText; updatePreview(); area.setSelectionRange(start, start + open.length + selected.length + close.length); }
+        const s = area.selectionStart, e = area.selectionEnd, t = area.value;
+        const selected = t.substring(s, e) || "текст";
+        
+        // Проверяем, есть ли уже тег size именно с этим значением
+        const exactTagMatch = new RegExp(`<size=${val}>(.*?)</size>`, "gi");
+        const hasExactTag = exactTagMatch.test(selected);
+
+        if (hasExactTag) {
+            // Если такой размер уже есть — убираем его (Toggle OFF)
+            toggleTag("", "", "size");
+        } else {
+            // Если размера нет или он другой — применяем новый (Update)
+            toggleTag(`<size=${val}>`, `</size>`, "size", true);
+        }
+    }
+
+    function toggleTag(open, close, tagName, forceNew = false, isLinkCreation = false) {
+        const s = area.selectionStart, e = area.selectionEnd, t = area.value;
+        let selected = t.substring(s, e) || "текст";
+        const reOpen = new RegExp(`<${tagName}(=[^>]+)?( [^>]+)?>`, "gi");
+        const reClose = new RegExp(`</${tagName}>`, "gi");
+        
+        if (tagName === 'u' && /<a [^>]+>|<\/a>/gi.test(selected)) { area.focus(); return; }
+
+        const hasTag = reOpen.test(selected) && reClose.test(selected);
+        let nt;
+
+        if (hasTag && !forceNew) {
+            const clean = selected.replace(reOpen, "").replace(reClose, "");
+            nt = t.substring(0, s) + clean + t.substring(e);
+            area.value = nt;
+            area.setSelectionRange(s, s + clean.length);
+        } else {
+            let clean = selected.replace(reOpen, "").replace(reClose, "");
+            if (isLinkCreation) { clean = clean.replace(/<u>/gi, "").replace(/<\/u>/gi, ""); }
+            nt = t.substring(0, s) + open + clean + close + t.substring(e);
+            if(getFullLength(nt) <= 2000) {
+                area.value = nt;
+                area.setSelectionRange(s, s + open.length + clean.length + close.length);
+            }
+        }
+        updatePreview();
         area.focus();
     }
-    function insertText(open, close, def = "текст") {
-        const s = area.selectionStart, e = area.selectionEnd, t = area.value, sel = t.substring(s, e) || def;
-        const nt = t.substring(0, s) + open + sel + close + t.substring(e);
-        if(getFullLength(nt) <= 2000) { area.value = nt; area.setSelectionRange(s, s + open.length + sel.length + close.length); updatePreview(); }
-        area.focus();
-    }
+
     function updatePreview() {
         const len = getFullLength(area.value);
         counter.innerText = `${len}/2000`;
@@ -168,6 +200,7 @@
         c = c.replace(/<size=(\d+)>(.*?)<\/size>/gi, '<span style="font-size: calc($1px / 2.5); line-height: 1.2;">$2</span>');
         result.innerHTML = c || "<span style='color: #666;'>Результат...</span>";
     }
+
     function copyCode() { if (!area.value) return; navigator.clipboard.writeText(area.value).then(() => { const b = document.getElementById('copyBtn'), o = b.innerText; b.innerText = "Готово!"; setTimeout(() => b.innerText = o, 1500); }); }
     function togglePreview() { const b = document.getElementById('toggleBtn'), is = previewContainer.classList.toggle('open'); b.innerText = is ? "Скрыть ▲" : "Превью ▼"; }
 </script>
