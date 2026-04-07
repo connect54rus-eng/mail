@@ -27,7 +27,7 @@
         .btn.active { background: #f39c12 !important; color: #000 !important; font-weight: bold; }
         .btn:disabled { opacity: 0.45; cursor: not-allowed; }
         .btn-s { font-size: 11px; padding: 6px 0; background: #444; }
-        .color-row { display: flex; justify-content: flex-start; gap: 12px; margin-top: 4px; padding: 0 5px; }
+        .color-row { display: flex; justify-content: flex-start; gap: 12px; margin-top: 4px; margin-bottom: 20px; padding: 0 5px; }
         .color-dot { width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: 0.2s; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18); }
         .color-dot.active { border-color: #fff; transform: scale(1.14); box-shadow: 0 0 9px #fff, inset 0 0 0 1px rgba(0,0,0,0.18); }
         #editor { 
@@ -73,7 +73,7 @@
             .size-row { gap: 2px; }
             .btn { font-size: 13px; padding: 7px 0; }
             .btn-s { font-size: 10px; padding: 6px 0; }
-            .color-row { gap: 8px; padding: 0 2px; flex-wrap: wrap; }
+            .color-row { gap: 8px; padding: 0 2px; flex-wrap: wrap; margin-bottom: 24px; }
             .color-dot { width: 28px; height: 28px; }
             #editor { height: 160px; padding: 8px; font-size: 15px; }
             .mid-bar { grid-template-columns: 1fr 1fr 52px 52px; gap: 8px; }
@@ -115,8 +115,6 @@
             <div class="color-dot" data-color="#FF00FF" style="background:#FF00FF" onmousedown="applyStyle(event, 'foreColor', '#FF00FF')"></div>
             <div class="color-dot" data-color="#FFFFFF" style="background:#FFFFFF" onmousedown="applyStyle(event, 'foreColor', '#FFFFFF')"></div>
             <div class="color-dot" data-color="#8B4513" style="background:#8B4513" onmousedown="applyStyle(event, 'foreColor', '#8B4513')"></div>
-            <div class="color-dot" data-color="#00BFFF" style="background:#00BFFF" onmousedown="applyStyle(event, 'foreColor', '#00BFFF')"></div>
-            <div class="color-dot" data-color="#800080" style="background:#800080" onmousedown="applyStyle(event, 'foreColor', '#800080')"></div>
         </div>
     </div>
 
