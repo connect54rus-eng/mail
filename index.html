@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 
@@ -12,197 +12,604 @@
   gtag('config', 'G-QVCYYN9TXE');
 </script>
 
-<meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Viking Rise Mail Editor</title>
+    <title>VR Mail Editor</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { background: #121212; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 10px; margin: 0; display: flex; justify-content: center; }
-        .container { border: 1px solid #ff9900; background: #1a1a1a; padding: 10px; border-radius: 12px; width: 100%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; }
-        h2 { color: #ff9900; margin: -5px 0 8px 0; font-size: 18px; text-align: center; text-transform: uppercase; }
-        .btns { display: flex; gap: 8px; margin-bottom: 5px; justify-content: center; align-items: center; flex-wrap: wrap; }
-        .img-btn { background: #333; border: 1px solid #444; color: #ccc; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 8px; font-size: 16px; transition: 0.2s; }
-        .img-btn:active { background: #ff9900; color: #000; }
-        .link-btn { font-size: 16px; font-weight: bold; width: 45px; padding: 0; }
-        .size-header { display: block; text-align: center; font-size: 13px; font-weight: bold; color: #ff9900; text-transform: uppercase; margin-bottom: 5px; padding-top: 0px; cursor: default; }
-        .size-panel { display: flex; gap: 5px; margin-bottom: 5px; justify-content: center; flex-wrap: wrap; }
-        .btn-s { width: 25px; height: 25px; font-size: 14px; background: #333; border: 1px solid #555; color: #fff; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
-        .btn-s:active { background: #ff9900; color: #000; }
-        .color-panel { display: flex; gap: 5px; margin-bottom: 35px; justify-content: center; align-items: center; flex-wrap: wrap; }
-        .color-dot { width: 25px; height: 25px; border-radius: 50%; border: 1px solid #555; cursor: pointer; }
-        .palette-btn-wrapper { position: relative; width: 55px; height: 25px; background: #2a2a2a; border: 1px solid #444; border-radius: 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; }
-        .color-label { display: flex; gap: 0; font-size: 12px; font-weight: 900; text-transform: uppercase; pointer-events: none; }
-        #colorPicker { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-        textarea { width: 100%; height: 180px; background: #ffffff; color: #000000; padding: 12px; border: 2px solid #ff9900; border-radius: 8px; font-family: monospace; font-size: 16px; resize: none; outline: none; margin-bottom: 5px; font-weight: 600; }
-        .char-counter { text-align: right; font-size: 12px; color: #ff9900; margin-bottom: 10px; font-family: monospace; }
-        .char-counter.limit { color: #ff4444; font-weight: bold; }
-        .action-row { display: flex; gap: 10px; margin-top: 5px; }
-        .btn-action { flex: 1; padding: 14px; background: #222; border: 1px solid #444; color: #ff9900; cursor: pointer; font-size: 13px; font-weight: bold; text-transform: uppercase; border-radius: 8px; }
-        .btn-copy { color: #44ff44; border-color: #226622; }
-        .btn-clear { flex: 0.3; color: #ff4444; border-color: #662222; }
-        .preview-wrapper { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: #acb3b7; border-radius: 8px; }
-        .preview-wrapper.open { max-height: 1000px; margin-top: 10px; border: 2px solid #ff9900; }
-        #result { padding: 15px; word-wrap: break-word; color: #000000; line-height: 1.5; font-size: 15px; font-weight: 600; }
-        #result a { color: #0044cc; text-decoration: underline; }
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
-        .modal-box { background: #1a1a1a; border: 1px solid #ff9900; padding: 20px; border-radius: 12px; width: 100%; max-width: 300px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.8); }
-        .modal-box p { color: #ff9900; margin: 0 0 15px 0; font-weight: bold; text-transform: uppercase; font-size: 14px; }
-        .modal-input { width: 100%; padding: 10px; background: #acb3b7; border: 1px solid #ff9900; border-radius: 6px; margin-bottom: 15px; outline: none; color: #000; font-weight: 600; }
-        .modal-btns { display: flex; gap: 10px; }
-        .modal-btn { flex: 1; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 12px; text-transform: uppercase; border: 1px solid #444; }
-        .btn-cancel { background: #333; color: #ccc; }
-        .btn-confirm { background: #222; color: #ff9900; border-color: #ff9900; }
-        .btn-danger { background: #442222; color: #ff4444; border-color: #ff4444; }
+        body { font-family: sans-serif; background: #000; color: #fff; margin: 0; display: flex; justify-content: center; padding-top: 10px; }
+        .app-container { width: 470px; background: #1c1c1d; padding: 10px; border-radius: 12px; display: flex; flex-direction: column; gap: 8px; }
+        .toolbar { background: #2c2c2e; padding: 8px; border-radius: 8px; display: flex; flex-direction: column; gap: 6px; }
+        .tool-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+        .size-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+        .btn { background: #3a3a3c; color: white; border: none; padding: 8px 0; border-radius: 6px; font-size: 14px; cursor: pointer; transition: 0.2s; }
+        .btn:active { background: #505052; }
+        .btn.active { background: #f39c12 !important; color: #000 !important; font-weight: bold; }
+        .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+        .btn-s { font-size: 11px; padding: 6px 0; background: #444; }
+        .color-row { display: flex; justify-content: flex-start; gap: 12px; margin-top: 4px; padding: 0 5px; }
+        .color-dot { width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: 0.2s; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.18); }
+        .color-dot.active { border-color: #fff; transform: scale(1.14); box-shadow: 0 0 9px #fff, inset 0 0 0 1px rgba(0,0,0,0.18); }
+        #editor { 
+            width: 100%; height: 170px; background: #fff; color: #000; padding: 10px; 
+            border-radius: 8px; overflow-y: auto; outline: none; font-family: sans-serif; 
+            font-size: 16px; line-height: 1.2; letter-spacing: 0.3px; position: relative;
+            word-break: normal; overflow-wrap: anywhere;
+        }
+        #editor:empty:before { content: attr(data-placeholder); color: #888; pointer-events: none; }
+        #editor a { color: blue; text-decoration: underline; }
+        #code-box { 
+            display: block; width: 100%; height: 170px; background: transparent; color: transparent; 
+            caret-color: #E6E6E6; padding: 10px; border-radius: 8px; font-family: 'Courier New', monospace; 
+            font-size: 14.5px; line-height: 1.33; resize: none; border: none; margin: 0;
+            letter-spacing: -0.5px; word-break: normal; position: relative; z-index: 2;
+        }
+        #code-box::placeholder { color: transparent; }
+        .code-wrap { display: none; position: relative; width: 100%; height: 170px; margin-top: 5px; border-radius: 8px; border: 1px solid #444; background: #000; overflow: hidden; }
+        #code-highlight {
+            position: absolute; inset: 0; z-index: 1; margin: 0; padding: 10px;
+            color: #39FF14; font-family: 'Courier New', monospace; font-size: 14.5px; line-height: 1.33;
+            letter-spacing: -0.5px; white-space: pre-wrap; word-break: normal; pointer-events: none; overflow: auto;
+        }
+        .code-wrap.editing #code-box { color: #39FF14; }
+        .code-wrap.editing #code-highlight { opacity: 0; }
+        .tok-tag { color: #4FC3F7; }
+        .tok-name { color: #FFB74D; }
+        .tok-attr { color: #AED581; }
+        .tok-val { color: #F06292; }
+        .tok-text { color: #39FF14; }
+        .mid-bar { display: grid; grid-template-columns: 1fr 1fr 45px 50px; gap: 10px; margin-top: 5px; align-items: center; }
+        .btn-act { padding: 12px; border: none; border-radius: 8px; font-weight: bold; background: #f39c12; color: #000; cursor: pointer; height: 45px; }
+        .btn-help { width: 45px; height: 45px; border-radius: 50%; background: #f39c12; color: #000; font-size: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; font-weight: bold; }
+        .info { display: flex; justify-content: space-between; font-size: 16px; color: #8e8e93; padding: 5px; font-weight: bold; }
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 999; align-items: flex-start; justify-content: center; padding-top: 50px; }
+        .modal-cnt { background: #2c2c2e; padding: 20px; border-radius: 14px; text-align: center; width: 450px; color: #fff; }
+        .help-list { text-align: left; font-size: 13.5px; color: #ccc; line-height: 1.5; margin: 15px 0; padding: 0; list-style: none; }
+        .help-list li { margin-bottom: 6px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Viking Rise Mail Editor</h2>
-    <div class="btns">
-        <button class="img-btn" onmousedown="event.preventDefault()" onclick="tag('b')"><b>Ж</b></button>
-        <button class="img-btn" onmousedown="event.preventDefault()" onclick="tag('i')"><i>К</i></button>
-        <button class="img-btn" onmousedown="event.preventDefault()" onclick="tag('u')"><u>Ч</u></button>
-        <button class="img-btn link-btn" onmousedown="event.preventDefault()" onclick="openLinkModal()">URL</button>
-    </div>
-
-    <span class="size-header">Размер ▼</span>
-    <div class="size-panel">
-        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(10)">1</button>
-        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(20)">2</button>
-        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(30)">3</button>
-        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(40)">4</button>
-        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(50)">5</button>
-        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(60)">6</button>
-        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(70)">7</button>
-        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(80)">8</button>
-        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(90)">9</button>
-        <button class="btn-s" onmousedown="event.preventDefault()" onclick="applySize(100)">10</button>
-    </div>
-
-    <span class="size-header">Цвет ▼</span>
-    <div class="color-panel">
-        <div class="color-dot" style="background: #FF0000;" onmousedown="event.preventDefault()" onclick="applyColor('#FF0000')"></div>
-        <div class="color-dot" style="background: #FF9900;" onmousedown="event.preventDefault()" onclick="applyColor('#FF9900')"></div>
-        <div class="color-dot" style="background: #FFFF00;" onmousedown="event.preventDefault()" onclick="applyColor('#FFFF00')"></div>
-        <div class="color-dot" style="background: #00FF00;" onmousedown="event.preventDefault()" onclick="applyColor('#00FF00')"></div>
-        <div class="color-dot" style="background: #00FFFF;" onmousedown="event.preventDefault()" onclick="applyColor('#00FFFF')"></div>
-        <div class="color-dot" style="background: #0000FF;" onmousedown="event.preventDefault()" onclick="applyColor('#0000FF')"></div>
-        <div class="color-dot" style="background: #FF00FF;" onmousedown="event.preventDefault()" onclick="applyColor('#FF00FF')"></div>
-        <div class="color-dot" style="background: #FFFFFF;" onmousedown="event.preventDefault()" onclick="applyColor('#FFFFFF')"></div>
-        <div class="color-dot" style="background: #000000;" onmousedown="event.preventDefault()" onclick="applyColor('#000000')"></div>
-        <div class="palette-btn-wrapper" onmousedown="event.preventDefault()">
-            <div class="color-label"><span style="color: #FF3B30;">Ц</span><span style="color: #FFCC00;">В</span><span style="color: #4CD964;">Е</span><span style="color: #007AFF;">Т</span></div>
-            <input type="color" id="colorPicker" onchange="applyColor(this.value)">
+<div class="app-container">
+    <div class="toolbar">
+        <div class="tool-row">
+            <button class="btn" id="btn-bold" onmousedown="applyStyle(event, 'bold')"><b>Ж</b></button>
+            <button class="btn" id="btn-italic" onmousedown="applyStyle(event, 'italic')"><i>К</i></button>
+            <button class="btn" id="btn-underline" onmousedown="applyStyle(event, 'underline')"><u>Ч</u></button>
+            <button class="btn" id="btn-link" onmousedown="applyLink(event)">URL</button>
+            <button class="btn" onmousedown="applyStyle(event, 'undo')">↶</button>
+        </div>
+        <div class="size-row">
+            <button class="btn btn-s btn-sz" data-val="1" onmousedown="applySize(event, '1')">1</button>
+            <button class="btn btn-s btn-sz" data-val="2" onmousedown="applySize(event, '2')">2</button>
+            <button class="btn btn-s btn-sz" data-val="3" onmousedown="applySize(event, '3')">3</button>
+            <button class="btn btn-s btn-sz" data-val="4" onmousedown="applySize(event, '4')">4</button>
+            <button class="btn btn-s btn-sz" data-val="5" onmousedown="applySize(event, '5')">5</button>
+            <button class="btn btn-s btn-sz" data-val="6" onmousedown="applySize(event, '6')">6</button>
+            <button class="btn btn-s btn-sz" data-val="7" onmousedown="applySize(event, '7')">7</button>
+        </div>
+        <div class="color-row">
+            <div class="color-dot" data-color="#FF0000" style="background:#FF0000" onmousedown="applyStyle(event, 'foreColor', '#FF0000')"></div>
+            <div class="color-dot" data-color="#FF9900" style="background:#FF9900" onmousedown="applyStyle(event, 'foreColor', '#FF9900')"></div>
+            <div class="color-dot" data-color="#FFFF00" style="background:#FFFF00" onmousedown="applyStyle(event, 'foreColor', '#FFFF00')"></div>
+            <div class="color-dot" data-color="#00FF00" style="background:#00FF00" onmousedown="applyStyle(event, 'foreColor', '#00FF00')"></div>
+            <div class="color-dot" data-color="#00FFFF" style="background:#00FFFF" onmousedown="applyStyle(event, 'foreColor', '#00FFFF')"></div>
+            <div class="color-dot" data-color="#0000FF" style="background:#0000FF" onmousedown="applyStyle(event, 'foreColor', '#0000FF')"></div>
+            <div class="color-dot" data-color="#FF00FF" style="background:#FF00FF" onmousedown="applyStyle(event, 'foreColor', '#FF00FF')"></div>
+            <div class="color-dot" data-color="#FFFFFF" style="background:#FFFFFF" onmousedown="applyStyle(event, 'foreColor', '#FFFFFF')"></div>
+            <div class="color-dot" data-color="#8B4513" style="background:#8B4513" onmousedown="applyStyle(event, 'foreColor', '#8B4513')"></div>
+            <div class="color-dot" data-color="#00BFFF" style="background:#00BFFF" onmousedown="applyStyle(event, 'foreColor', '#00BFFF')"></div>
+            <div class="color-dot" data-color="#800080" style="background:#800080" onmousedown="applyStyle(event, 'foreColor', '#800080')"></div>
         </div>
     </div>
-    
-    <textarea id="edit" placeholder="Напишите сообщение..." oninput="updatePreview()" onbeforeinput="validateInput(event)"></textarea>
-    <div class="char-counter" id="counter">0/2000</div>
-    
-    <div class="action-row">
-        <button class="btn-action" onclick="togglePreview()" id="toggleBtn">Превью ▼</button>
-        <button class="btn-action btn-copy" onclick="copyCode()" id="copyBtn">Копировать</button>
-        <button class="btn-action btn-clear" onclick="openClearModal()">✖</button>
+
+    <div id="editor" contenteditable="true" spellcheck="false" data-placeholder="Напишите сообщение..."></div>
+
+    <div class="mid-bar">
+        <button class="btn-act" id="tgl" onclick="toggle()">Код ▼</button>
+        <button class="btn-act" id="btn-copy" onclick="copy(event)">Копировать</button>
+        <button class="btn-help" onclick="openH()">?</button>
+        <button class="btn-act" style="background:#ff3b30; color:#fff" onclick="openM()">X</button>
     </div>
-    <div id="preview-container" class="preview-wrapper">
-        <div id="result">Результат появится здесь...</div>
+
+    <div id="code-wrap" class="code-wrap">
+        <pre id="code-highlight">Результат появится здесь...</pre>
+        <textarea id="code-box" placeholder="Результат появится здесь..."></textarea>
+    </div>
+    
+    <div class="info">
+        <span>VR Mail Editor</span>
+        <span id="char-cnt">0/2000</span>
     </div>
 </div>
 
-<div id="modalClear" class="modal-overlay">
-    <div class="modal-box"><p>Очистить всё?</p><div class="modal-btns"><button class="modal-btn btn-cancel" onclick="closeModals()">Отмена</button><button class="modal-btn btn-danger" onclick="confirmClear()">Очистить</button></div></div>
-</div>
-<div id="modalLink" class="modal-overlay">
-    <div class="modal-box"><p>Введите URL ссылки</p><input type="text" id="linkInput" class="modal-input" value="https://"><div class="modal-btns"><button class="modal-btn btn-cancel" onclick="closeModals()">Отмена</button><button class="modal-btn btn-confirm" onclick="confirmLink()">ОК</button></div></div>
+<div id="modal" class="modal"><div class="modal-cnt" style="width: 300px;"><h3>ОЧИСТИТЬ?</h3><div style="display:flex; gap:10px"><button class="btn-act" style="flex:1; background:#444; color:#fff" onclick="closeM(0)">Нет</button><button class="btn-act" style="flex:1; background:#ff3b30; color:#fff" onclick="closeM(1)">Да</button></div></div></div>
+
+<!-- ОБНОВЛЕННАЯ СПРАВКА -->
+<div id="modal-help" class="modal">
+    <div class="modal-cnt">
+        <h3 style="color: #f39c12; margin-top: 0;">СПРАВКА ПО РЕДАКТОРУ</h3>
+        <ul class="help-list">
+            <li>• <b>Ж, К, Ч</b> — кнопки форматирования текста (Жирный, Курсив, Подчеркнутый).</li>
+            <li>• <b>URL</b> — вставка гиперссылки в текст.</li>
+            <li>• <b>↶</b> — отмена последнего действия (аналог Ctrl+Z).</li>
+            <li>• <b>Цифры (1-7)</b> — размер шрифта.</li>
+            <li>• <b>Цветные кружки</b> — выбор цвета текста.</li>
+            <li>• <b>Код ▼</b> — разворачивает окно с готовым кодом.</li>
+            <li>• <b>Копировать</b> — сохраняет результат кода в буфер.</li>
+            <li>• <b>X</b> — полная очистка редактора.</li>
+        </ul>
+        <button class="btn-act" style="width:100%; background:#444; color:#fff" onclick="closeH()">OK</button>
+    </div>
 </div>
 
 <script>
-    const area = document.getElementById('edit'), result = document.getElementById('result'), counter = document.getElementById('counter'), previewContainer = document.getElementById('preview-container');
-    
-    function getFullLength(text) { return text.length + (text.match(/\n/g) || []).length; }
-    function validateInput(e) { if (!e.data) return; if (getFullLength(area.value) + e.data.length + (e.data.match(/\n/g) || []).length > 2000) e.preventDefault(); }
-    function openClearModal() { document.getElementById('modalClear').style.display = 'flex'; }
-    function closeModals() { document.getElementById('modalClear').style.display = 'none'; document.getElementById('modalLink').style.display = 'none'; }
-    function confirmClear() { area.value = ""; updatePreview(); closeModals(); }
-
-    function openLinkModal() { 
-        const s = area.selectionStart, e = area.selectionEnd, t = area.value;
-        const selected = t.substring(s, e);
-        if (/<a [^>]+>|<\/a>/gi.test(selected)) { toggleTag("", "", "a"); } 
-        else { document.getElementById('modalLink').style.display = 'flex'; }
-    }
-
-    function tag(name) { toggleTag(`<${name}>`, `</${name}>`, name); }
-
-    function confirmLink() { 
-        const url = document.getElementById('linkInput').value; 
-        if (url && url !== "https://") { toggleTag(`<a href=${url}>`, `</a>`, "a", false, true); } 
-        closeModals(); 
-    }
-
-    function applyColor(hex) { toggleTag(`<color=${hex}>`, `</color>`, "color", true); }
-
-    function applySize(val) {
-        const s = area.selectionStart, e = area.selectionEnd, t = area.value;
-        const selected = t.substring(s, e) || "текст";
-        
-        // Проверяем, есть ли уже тег size именно с этим значением
-        const exactTagMatch = new RegExp(`<size=${val}>(.*?)</size>`, "gi");
-        const hasExactTag = exactTagMatch.test(selected);
-
-        if (hasExactTag) {
-            // Если такой размер уже есть — убираем его (Toggle OFF)
-            toggleTag("", "", "size");
-        } else {
-            // Если размера нет или он другой — применяем новый (Update)
-            toggleTag(`<size=${val}>`, `</size>`, "size", true);
+    const ed = document.getElementById('editor');
+    const out = document.getElementById('code-box');
+    const codeWrap = document.getElementById('code-wrap');
+    const codeHighlight = document.getElementById('code-highlight');
+    const cnt = document.getElementById('char-cnt');
+    const MAX_LEN = 2000;
+    let lastValidHtml = '';
+    let lastValidCode = '';
+    let lastValidTotal = 0;
+    let isSyncingFromCode = false;
+    let codeSyncTimer = null;
+    const setCounter = (total) => {
+        cnt.innerText = total + "/" + MAX_LEN;
+        cnt.style.color = total >= MAX_LEN ? "red" : "#8e8e93";
+    };
+    const charWeight = (ch) => ch === '\n' ? 2 : 1;
+    const weightedLen = (text) => {
+        let sum = 0;
+        for (const ch of (text || '')) sum += charWeight(ch);
+        return sum;
+    };
+    const clipTextToRemaining = (text, remaining) => {
+        if (remaining <= 0 || !text) return '';
+        const normalized = String(text).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        let used = 0;
+        let outText = '';
+        for (const ch of normalized) {
+            const w = charWeight(ch);
+            if (used + w > remaining) break;
+            outText += ch;
+            used += w;
         }
+        return outText;
+    };
+    const clipCodeToMax = (code) => clipTextToRemaining(code, MAX_LEN);
+
+    const toHex = (c) => {
+        if (!c || c === 'transparent' || c === 'rgba(0, 0, 0, 0)') return '#000000';
+        if (c.startsWith('#')) return c.toUpperCase();
+        const rgb = c.match(/\d+/g);
+        if (!rgb) return '#000000';
+        return "#" + rgb.slice(0,3).map(x => parseInt(x).toString(16).padStart(2, '0')).join('').toUpperCase();
+    };
+
+    function codeToEditorHtml(code) {
+        let html = (code || '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+        html = html.replace(/<\s*script[\s\S]*?>[\s\S]*?<\s*\/script\s*>/gi, '');
+        html = html.replace(/<size=([0-9]{1,3})>/gi, (m, n) => {
+            const raw = Math.max(1, Math.min(999, parseInt(n, 10) || 10));
+            const btnSize = Math.max(1, Math.min(7, Math.round(raw / 10)));
+            return `<font size="${btnSize}" data-sz="${raw}">`;
+        });
+        html = html.replace(/<\/size>/gi, '</font>');
+        html = html.replace(/<color=(#[0-9a-f]{6})>/gi, '<font color="$1">');
+        html = html.replace(/<\/color>/gi, '</font>');
+        html = html.replace(/<a\s+href=("[^"]+"|'[^']+'|[^ >]+)>/gi, (m, href) => {
+            const safeHref = String(href).replace(/^['"]|['"]$/g, '');
+            return `<a href="${safeHref}">`;
+        });
+        html = html.replace(/\n/g, '<br>');
+        html = html.replace(/<(?!\/?(?:b|i|u|a|font|br)\b)[^>]*>/gi, '');
+        return html;
     }
 
-    function toggleTag(open, close, tagName, forceNew = false, isLinkCreation = false) {
-        const s = area.selectionStart, e = area.selectionEnd, t = area.value;
-        let selected = t.substring(s, e) || "текст";
-        const reOpen = new RegExp(`<${tagName}(=[^>]+)?( [^>]+)?>`, "gi");
-        const reClose = new RegExp(`</${tagName}>`, "gi");
+    function syncEditorFromCode() {
+        if (codeSyncTimer) clearTimeout(codeSyncTimer);
+        codeSyncTimer = setTimeout(() => {
+            if (document.activeElement !== out) return;
+            syncEditorFromCodeNow();
+        }, 120);
+    }
+
+    function syncEditorFromCodeNow() {
+        isSyncingFromCode = true;
+        ed.innerHTML = codeToEditorHtml(out.value);
+        renderCodeHighlight();
+        update();
+        checkState();
+        isSyncingFromCode = false;
+    }
+
+    const escHtml = (s) => (s || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+    function highlightTag(rawTag) {
+        if (/^<\//.test(rawTag)) {
+            const closeName = (rawTag.match(/^<\/\s*([a-z]+)/i) || [,''])[1];
+            return `<span class="tok-tag">&lt;/</span><span class="tok-name">${escHtml(closeName)}</span><span class="tok-tag">&gt;</span>`;
+        }
+        const open = rawTag.match(/^<\s*([a-z]+)/i);
+        if (!open) return `<span class="tok-tag">${escHtml(rawTag)}</span>`;
+        const name = open[1];
+        let rest = rawTag.slice(open[0].length, -1);
+        let body = `<span class="tok-tag">&lt;</span><span class="tok-name">${escHtml(name)}</span>`;
+        if (name.toLowerCase() === 'size' || name.toLowerCase() === 'color') {
+            const val = rest.replace(/^\s*=\s*/, '').trim();
+            if (val) body += `<span class="tok-tag">=</span><span class="tok-val">${escHtml(val)}</span>`;
+        } else if (name.toLowerCase() === 'a') {
+            const href = rest.match(/\bhref\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/i);
+            if (href) {
+                body += ` <span class="tok-attr">href</span><span class="tok-tag">=</span><span class="tok-val">${escHtml(href[1])}</span>`;
+            } else if (rest.trim()) {
+                body += ` <span class="tok-attr">${escHtml(rest.trim())}</span>`;
+            }
+        } else if (rest.trim()) {
+            body += ` <span class="tok-attr">${escHtml(rest.trim())}</span>`;
+        }
+        body += `<span class="tok-tag">&gt;</span>`;
+        return body;
+    }
+
+    function renderCodeHighlight() {
+        const source = out.value || '';
+        if (!source) {
+            codeHighlight.innerHTML = 'Результат появится здесь...';
+            return;
+        }
+        const parts = source.split(/(<\/?[^>\n]+>)/g);
+        codeHighlight.innerHTML = parts.map(part => {
+            if (!part) return '';
+            if (part.startsWith('<') && part.endsWith('>')) return highlightTag(part);
+            return `<span class="tok-text">${escHtml(part)}</span>`;
+        }).join('');
+    }
+
+    function checkState() {
+        const underlineBtn = document.getElementById('btn-underline');
+        const linkBtn = document.getElementById('btn-link');
+        const inLink = isSelectionInLink();
+        document.getElementById('btn-bold').classList.toggle('active', document.queryCommandState('bold'));
+        document.getElementById('btn-italic').classList.toggle('active', document.queryCommandState('italic'));
+        underlineBtn.classList.toggle('active', !inLink && document.queryCommandState('underline'));
+        underlineBtn.disabled = inLink;
+        linkBtn.classList.toggle('active', inLink);
         
-        if (tagName === 'u' && /<a [^>]+>|<\/a>/gi.test(selected)) { area.focus(); return; }
+        const sel = window.getSelection();
+        let curSz = "";
+        let curCol = "";
 
-        const hasTag = reOpen.test(selected) && reClose.test(selected);
-        let nt;
+        if (sel && sel.rangeCount > 0) {
+            let node = sel.anchorNode;
+            let el = node.nodeType === 3 ? node.parentElement : node;
+            curCol = toHex(window.getComputedStyle(el).color);
 
-        if (hasTag && !forceNew) {
-            const clean = selected.replace(reOpen, "").replace(reClose, "");
-            nt = t.substring(0, s) + clean + t.substring(e);
-            area.value = nt;
-            area.setSelectionRange(s, s + clean.length);
-        } else {
-            let clean = selected.replace(reOpen, "").replace(reClose, "");
-            if (isLinkCreation) { clean = clean.replace(/<u>/gi, "").replace(/<\/u>/gi, ""); }
-            nt = t.substring(0, s) + open + clean + close + t.substring(e);
-            if(getFullLength(nt) <= 2000) {
-                area.value = nt;
-                area.setSelectionRange(s, s + open.length + clean.length + close.length);
+            while (el && el !== ed) {
+                if (el.tagName === 'FONT' && (el.hasAttribute('size') || el.hasAttribute('data-sz'))) { 
+                    curSz = el.getAttribute('size') || el.getAttribute('data-sz').charAt(0); 
+                    break; 
+                }
+                el = el.parentElement;
             }
         }
-        updatePreview();
-        area.focus();
+        document.querySelectorAll('.btn-sz').forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-val') === curSz));
+        document.querySelectorAll('.color-dot').forEach(dot => {
+            const dotCol = toHex(dot.getAttribute('data-color'));
+            dot.classList.toggle('active', curCol !== '#000000' && dotCol === curCol);
+        });
     }
 
-    function updatePreview() {
-        const len = getFullLength(area.value);
-        counter.innerText = `${len}/2000`;
-        counter.classList.toggle('limit', len >= 2000);
-        let c = area.value.replace(/\n/g, "<br>");
-        c = c.replace(/<color=(#[0-9a-fA-F]{6})>(.*?)<\/color>/gi, '<span style="color:$1">$2</span>');
-        c = c.replace(/<b>(.*?)<\/b>/gi, '<b>$1</b>').replace(/<i>(.*?)<\/i>/gi, '<i>$1</i>').replace(/<u>(.*?)<\/u>/gi, '<u>$1</u>');
-        c = c.replace(/<a href=(.*?)>(.*?)<\/a>/gi, '<a href="$1" target="_blank">$2</a>');
-        c = c.replace(/<size=(\d+)>(.*?)<\/size>/gi, '<span style="font-size: calc($1px / 2.5); line-height: 1.2;">$2</span>');
-        result.innerHTML = c || "<span style='color: #666;'>Результат...</span>";
+    function applyStyle(e, cmd, val) {
+        if(e) e.preventDefault();
+        if (cmd === 'underline' && isSelectionInLink()) {
+            setTimeout(checkState, 10);
+            return;
+        }
+        ed.focus();
+        if (cmd === 'foreColor') {
+            const cur = toHex(document.queryCommandValue('foreColor'));
+            const nextColor = toHex(val);
+            document.execCommand('foreColor', false, cur === nextColor ? '#000000' : nextColor);
+        } else {
+            document.execCommand(cmd, false, val);
+        }
+        update(); setTimeout(checkState, 10);
     }
 
-    function copyCode() { if (!area.value) return; navigator.clipboard.writeText(area.value).then(() => { const b = document.getElementById('copyBtn'), o = b.innerText; b.innerText = "Готово!"; setTimeout(() => b.innerText = o, 1500); }); }
-    function togglePreview() { const b = document.getElementById('toggleBtn'), is = previewContainer.classList.toggle('open'); b.innerText = is ? "Скрыть ▲" : "Превью ▼"; }
+    function applySize(e, s) {
+        if(e) e.preventDefault();
+        ed.focus();
+        const sel = window.getSelection();
+        if (!sel.rangeCount) return;
+
+        const range = sel.getRangeAt(0);
+        const startCont = range.startContainer;
+        const startOff = range.startOffset;
+        const endCont = range.endContainer;
+        const endOff = range.endOffset;
+
+        let node = sel.anchorNode;
+        let el = node.nodeType === 3 ? node.parentElement : node;
+        let fontTag = null;
+
+        while (el && el !== ed) {
+            if (el.tagName === 'FONT' && (el.getAttribute('size') === s || (el.getAttribute('data-sz') && el.getAttribute('data-sz').startsWith(s)))) {
+                fontTag = el;
+                break;
+            }
+            el = el.parentElement;
+        }
+
+        if (fontTag) {
+            const parent = fontTag.parentNode;
+            while (fontTag.firstChild) parent.insertBefore(fontTag.firstChild, fontTag);
+            parent.removeChild(fontTag);
+            const newRange = document.createRange();
+            try {
+                newRange.setStart(startCont, startOff);
+                newRange.setEnd(endCont, endOff);
+                sel.removeAllRanges();
+                sel.addRange(newRange);
+            } catch(err) {}
+        } else {
+            document.execCommand('fontSize', false, s);
+            setTimeout(() => {
+                const newSel = window.getSelection();
+                if (newSel.rangeCount) {
+                    let newEl = newSel.anchorNode.parentElement;
+                    if (newEl && newEl.tagName === 'FONT') newEl.setAttribute('data-sz', s + '0');
+                }
+                update();
+            }, 5);
+        }
+        update(); setTimeout(checkState, 20);
+    }
+
+    function applyLink(e) {
+        if(e) e.preventDefault(); ed.focus();
+        if (isSelectionInLink()) {
+            document.execCommand('unlink', false, null);
+            update();
+            setTimeout(checkState, 10);
+            return;
+        }
+        const url = prompt("URL:", "https://");
+        if(url && url !== "https://") {
+            document.execCommand('createLink', false, url);
+            stripUnderlineFromLinks(ed);
+            update();
+            setTimeout(checkState, 10);
+        }
+    }
+
+    function isSelectionInLink() {
+        const sel = window.getSelection();
+        if (!sel || !sel.rangeCount) return false;
+        const node = sel.anchorNode;
+        const el = node ? (node.nodeType === 3 ? node.parentElement : node) : null;
+        return !!(el && el.closest && el.closest('a') && ed.contains(el.closest('a')));
+    }
+
+    function unwrapTag(node) {
+        const parent = node.parentNode;
+        if (!parent) return;
+        while (node.firstChild) parent.insertBefore(node.firstChild, node);
+        parent.removeChild(node);
+    }
+
+    function stripUnderlineFromLinks(root) {
+        root.querySelectorAll('a u').forEach(unwrapTag);
+        root.querySelectorAll('u > a').forEach((a) => {
+            const parentU = a.parentElement;
+            if (parentU && parentU.tagName === 'U') {
+                parentU.parentNode.insertBefore(a, parentU);
+                if (!parentU.textContent.trim() && !parentU.children.length) parentU.remove();
+            }
+        });
+    }
+
+    function removeEmptyInlineTags(root) {
+        let changed = true;
+        while (changed) {
+            changed = false;
+            root.querySelectorAll('a,b,i,u,font').forEach((el) => {
+                const text = (el.textContent || '').replace(/\u200B/g, '').trim();
+                if (!text && !el.querySelector('br,img')) {
+                    el.remove();
+                    changed = true;
+                }
+            });
+        }
+    }
+
+    ed.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        const remaining = MAX_LEN - lastValidTotal;
+        if (remaining <= 0) {
+            setCounter(lastValidTotal);
+            return;
+        }
+        const allowedText = clipTextToRemaining(text, remaining);
+        if (!allowedText) return;
+        document.execCommand('insertText', false, allowedText);
+        update();
+    });
+
+    ed.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { 
+            if (lastValidTotal >= MAX_LEN) {
+                e.preventDefault();
+                setCounter(lastValidTotal);
+                return;
+            }
+            e.preventDefault(); 
+            document.execCommand('insertLineBreak'); 
+            update(); 
+            return; 
+        }
+        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && lastValidTotal >= MAX_LEN) {
+            e.preventDefault();
+            setCounter(lastValidTotal);
+            return;
+        }
+        setTimeout(checkState, 10);
+    });
+
+    function update() {
+        removeEmptyInlineTags(ed);
+        if (!ed.innerText.trim() && !ed.querySelector('font, a, b, i, u')) {
+            ed.innerHTML = '';
+            out.value = '';
+            renderCodeHighlight();
+            setCounter(0);
+            lastValidHtml = '';
+            lastValidCode = '';
+            lastValidTotal = 0;
+            return;
+        }
+        let temp = ed.cloneNode(true);
+        removeEmptyInlineTags(temp);
+        stripUnderlineFromLinks(temp);
+        temp.querySelectorAll('*').forEach(el => {
+            el.removeAttribute('style');
+            if (el.tagName !== 'FONT' && el.tagName !== 'A') {
+                while (el.attributes.length > 0) el.removeAttribute(el.attributes[0].name);
+            }
+        });
+
+        temp.querySelectorAll('font').forEach(el => {
+            let color = toHex(el.getAttribute('color'));
+            let sz = el.getAttribute('data-sz') || (el.getAttribute('size') ? el.getAttribute('size') + '0' : null);
+            let content = el.innerHTML;
+            if (color && color !== '#000000') content = `<color=${color}>${content}</color>`;
+            if (sz) content = `<size=${sz}>${content}</size>`;
+            el.outerHTML = content;
+        });
+
+        let res = temp.innerHTML
+            .replace(/&nbsp;/g, ' ')
+            .replace(/<div><br><\/div>/g, '\n')
+            .replace(/<div>/g, '\n').replace(/<\/div>/g, '')
+            .replace(/<br\s*\/?>/gi, '\n')
+            .replace(/<b>(.*?)<\/b>/gi, '<b>$1</b>')
+            .replace(/<i>(.*?)<\/i>/gi, '<i>$1</i>')
+            .replace(/<u>(.*?)<\/u>/gi, '<u>$1</u>')
+            .replace(/<a[^>]+href="(.*?)"[^>]*>(.*?)<\/a>/gi, '<a href=$1>$2</a>')
+            .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+            .replace(/<[^>]+>/g, (m) => m.match(/<\/?(b|i|u|a|size|color)/) ? m : '');
+
+        let finalCode = res.replace(/\r/g, '')
+                           .replace(/<\/color(?:=[^>]+|#[A-Z0-9]+)?>/gi, '</color>')
+                           .replace(/<\/size(?:=[^>]+|[0-9]+)?>/gi, '</size>');
+
+        // Move line breaks out of trailing closing tags: "\n</i></b></color></size>" -> "</i></b></color></size>\n"
+        let prevCode = '';
+        while (prevCode !== finalCode) {
+            prevCode = finalCode;
+            finalCode = finalCode.replace(/\n((?:<\/(?:b|i|u|a|color|size)>)+)/gi, '$1\n');
+        }
+
+        finalCode = finalCode
+                           .replace(/((?:<\/(?:b|i|u|a|color|size)>)+)\n{2,}/gi, '$1\n')
+                           .replace(/\n{3,}/g, '\n\n')
+                           .split('\n')
+                           .map(l => l.trimEnd())
+                           .join('\n')
+                           .replace(/[\n]+$/, '');
+        
+        finalCode = clipCodeToMax(finalCode);
+        const total = weightedLen(finalCode);
+
+        if (!isSyncingFromCode) {
+            out.value = finalCode;
+        } else {
+            // When editing code directly, normalize editor to the clipped content as source of truth.
+            const normalizedHtml = codeToEditorHtml(finalCode);
+            if (ed.innerHTML !== normalizedHtml) ed.innerHTML = normalizedHtml;
+        }
+        renderCodeHighlight();
+        setCounter(total);
+        lastValidHtml = ed.innerHTML;
+        lastValidCode = finalCode;
+        lastValidTotal = total;
+    }
+
+    function toggle() { 
+        const isV = codeWrap.style.display === 'block'; 
+        codeWrap.style.display = isV ? 'none' : 'block'; 
+        document.getElementById('tgl').innerText = isV ? 'Код ▼' : 'Код ▲'; 
+    }
+
+    function copy(event) {
+        update(); 
+        codeWrap.style.display = 'block';
+        document.getElementById('tgl').innerText = 'Код ▲';
+        out.focus();
+        out.select();
+        navigator.clipboard.writeText(out.value).then(() => {
+            const b = event.target;
+            b.innerText = "OK!";
+            setTimeout(() => b.innerText = "Копировать", 2000);
+        });
+    }
+
+    function openM() { document.getElementById('modal').style.display = 'flex'; }
+    function resetUiState() {
+        document.querySelectorAll('.btn.active, .btn-sz.active, .color-dot.active').forEach(el => el.classList.remove('active'));
+        codeWrap.style.display = 'none';
+        document.getElementById('tgl').innerText = 'Код ▼';
+    }
+    function closeM(c) {
+        if (c) {
+            ed.innerHTML = '';
+            update();
+            resetUiState();
+            const sel = window.getSelection();
+            if (sel) sel.removeAllRanges();
+            ed.blur();
+        }
+        document.getElementById('modal').style.display = 'none';
+    }
+    function openH() { document.getElementById('modal-help').style.display = 'flex'; }
+    function closeH() { document.getElementById('modal-help').style.display = 'none'; }
+
+    ed.oninput = () => {
+        if (codeSyncTimer) {
+            clearTimeout(codeSyncTimer);
+            codeSyncTimer = null;
+        }
+        update();
+    };
+    ed.addEventListener('focus', () => {
+        if (codeSyncTimer) {
+            clearTimeout(codeSyncTimer);
+            codeSyncTimer = null;
+        }
+    });
+    out.addEventListener('input', syncEditorFromCode);
+    out.addEventListener('focus', () => {
+        codeWrap.classList.add('editing');
+    });
+    out.addEventListener('blur', () => {
+        codeWrap.classList.remove('editing');
+        syncEditorFromCodeNow();
+    });
+    out.addEventListener('scroll', () => {
+        codeHighlight.scrollTop = out.scrollTop;
+        codeHighlight.scrollLeft = out.scrollLeft;
+    });
+    ed.addEventListener('keyup', checkState);
+    ed.addEventListener('click', checkState);
+    document.addEventListener('selectionchange', () => { if (document.activeElement === ed) checkState(); });
 </script>
 </body>
 </html>
